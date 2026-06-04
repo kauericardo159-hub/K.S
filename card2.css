@@ -1,0 +1,128 @@
+:root {
+    /* Sincronização estrita de cores com o Card1 e a identidade do PWA */
+    --bg-card-secundario: rgba(10, 12, 22, 0.7);
+    --borda-escura-secundaria: rgba(0, 0, 0, 0.5);
+    
+    /* Paleta unificada dos personagens */
+    --kaue-rosa: #f472b6;
+    --kaue-amarelo: #fdf4cd;
+    --sky-ciano: #00e5ff;
+    --sky-branco: #ffffff;
+    
+    /* Tipografia de Interface */
+    --texto-claro: #f8fafc;
+    --texto-mutado: #64748b;
+}
+
+/* --- CARD SECUNDÁRIO (TEMPO CONHECIDOS) --- */
+.card-secundario {
+    position: relative;
+    /* Centralização perfeita e espaçamento seguro abaixo do Card1 */
+    margin: 24px auto 0 auto !important; 
+    padding: 1.5rem 2rem;
+    background: var(--bg-card-secundario);
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    
+    /* Arquitetura de borda e contenção anti-vazamento */
+    border: 3px solid var(--borda-escura-secundaria);
+    border-radius: 22px;
+    overflow: hidden;
+    
+    text-align: center;
+    width: 100%;
+    max-width: 580px;
+    
+    /* Vidro Translúcido (Glassmorphism Harmônico) */
+    backdrop-filter: blur(20px); 
+    -webkit-backdrop-filter: blur(20px);
+    
+    /* Sombreamento profundo com reflexo interno sutil */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
+                inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    
+    /* Preparação da GPU para animações fluidas a 60 FPS */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                border-color 0.4s ease, 
+                box-shadow 0.4s ease;
+    will-change: transform;
+}
+
+/* Brilho reativo nas bordas ao passar o mouse ou interagir */
+.card-secundario:hover {
+    transform: translateY(-3px) translateZ(0);
+    border-color: rgba(0, 229, 255, 0.25);
+    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.7),
+                0 0 20px rgba(244, 114, 182, 0.08);
+}
+
+/* Título em degradê linear com as identidades fundidas */
+.card-secundario-titulo {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-bottom: 14px;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--sky-ciano), var(--kaue-rosa));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+.contador-pequeno {
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--texto-claro);
+    letter-spacing: 0.3px;
+    line-height: 1.5;
+}
+
+/* Cápsulas de tempo premium combinando com o design das orelhas do Kauê */
+.tempo-destaque {
+    font-weight: 800;
+    color: var(--kaue-amarelo); 
+    background: rgba(253, 244, 205, 0.06);
+    padding: 4px 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(253, 244, 205, 0.25);
+    display: inline-block;
+    margin: 0 2px;
+    text-shadow: 0 0 10px rgba(253, 244, 205, 0.4);
+    box-shadow: inset 0 1px 3px rgba(253, 244, 205, 0.02);
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* Reatividade interna nas cápsulas quando o card principal sofre hover */
+.card-secundario:hover .tempo-destaque {
+    background: rgba(253, 244, 205, 0.12);
+    border-color: rgba(253, 244, 205, 0.4);
+}
+
+/* --- DESIGN RESPONSIVO OTIMIZADO (MOBILE ULTRA-FIT) --- */
+@media (max-width: 600px) {
+    .card-secundario {
+        padding: 1.25rem 1.1rem;
+        margin-top: 20px !important;
+        border-radius: 18px;
+        border-width: 2px;
+        /* Garante margem lateral idêntica ao Card1 em telas pequenas */
+        width: calc(100% - 10px); 
+    }
+    
+    .contador-pequeno { 
+        font-size: 0.96rem; 
+        line-height: 1.7; 
+    }
+    
+    .card-secundario-titulo { 
+        font-size: 0.68rem; 
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
+    
+    .tempo-destaque {
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 1rem;
+    }
+}

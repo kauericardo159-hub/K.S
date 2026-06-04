@@ -1,0 +1,367 @@
+@property --borda-angulo {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
+:root {
+    /* Paleta sincronizada com a identidade escura premium de 2026 */
+    --bg-card-principal: rgba(10, 12, 22, 0.85);
+    
+    /* Kauê (Rosa + Amarelo Orelha) */
+    --kaue-rosa: #f472b6;
+    --kaue-amarelo: #fdf4cd;
+    
+    /* Sky (Ciano + Branco) */
+    --sky-ciano: #00e5ff;
+    --sky-branco: #ffffff;
+    
+    /* Elementos de Interface */
+    --texto-claro: #f8fafc;
+    --texto-mutado: #64748b;
+    --borda-escura: rgba(0, 0, 0, 0.6);
+}
+
+/* --- CARD PRINCIPAL --- */
+.card {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    
+    /* Recuo seguro para não conflitar com elementos sobrepostos do topo */
+    margin: 110px auto 24px auto !important; 
+    
+    padding: 3rem 2rem;
+    text-align: center;
+    border-radius: 28px;
+    overflow: hidden; 
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+
+    /* Moldura em degradê animada usando propriedades nativas modernas */
+    border: 4px solid var(--borda-escura);
+    background-clip: padding-box, border-box, border-box;
+    background-origin: padding-box, border-box, border-box;
+    background-image: 
+        linear-gradient(var(--bg-card-principal), var(--bg-card-principal)), 
+        url('fundo2.png'), 
+        conic-gradient(from var(--borda-angulo), var(--sky-ciano), var(--kaue-rosa), var(--sky-ciano));
+    background-size: cover;
+    background-position: center;
+    
+    /* Efeito Glassmorphism Avançado */
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 
+                inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    
+    animation: rotacionarBordaOtimizada 6s linear infinite;
+    will-change: auto;
+}
+
+@keyframes rotacionarBordaOtimizada {
+    to { --borda-angulo: 360deg; }
+}
+
+/* --- DETALHES LATERAIS --- */
+.efeito-img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateZ(0);
+    height: 55px;
+    width: auto;
+    opacity: 0.35;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+.efeito-esquerdo { left: 24px; }
+.efeito-direito { right: 24px; }
+
+/* --- CONFIGURAÇÃO DOS PERFIS --- */
+.topo-relacionamento {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.perfil-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    cursor: default;
+}
+
+.perfil-wrapper {
+    position: relative;
+    width: 105px;
+    height: 105px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+.perfil-container:hover .perfil-wrapper {
+    transform: scale(1.06) translateY(-2px);
+}
+
+/* Camadas de Brilho dos Avatares */
+.kaue-borda { 
+    background: linear-gradient(135deg, var(--kaue-rosa), var(--kaue-amarelo));
+    padding: 3px; 
+    box-shadow: 0 10px 25px rgba(244, 114, 182, 0.3);
+}
+.sky-borda { 
+    background: linear-gradient(135deg, var(--sky-ciano), var(--sky-branco));
+    padding: 3px; 
+    box-shadow: 0 10px 25px rgba(0, 229, 255, 0.3);
+}
+
+.foto-perfil { 
+    width: 100%; 
+    height: 100%; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    background: #0a0c16;
+    z-index: 1;
+}
+
+/* Molduras PNG acopladas perfeitamente por cima dos avatares */
+.moldura { 
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain;
+    pointer-events: none; 
+    transform: translate(-50%, -50%) scale(1.16); 
+    z-index: 2; 
+}
+
+/* Tipografia de Alta Definição com Gradientes */
+.nome {
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+}
+.nome-kaue { 
+    background-image: linear-gradient(135deg, var(--kaue-rosa), var(--kaue-amarelo)); 
+}
+.nome-sky { 
+    background-image: linear-gradient(135deg, var(--sky-ciano), var(--sky-branco)); 
+}
+
+/* --- BLOCO CENTRAL (MEME / LOGO) --- */
+.centro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 80px;
+}
+
+.meme-wrapper {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+.centro-container:hover .meme-wrapper {
+    transform: scale(1.12) rotate(-5deg);
+}
+
+.meme-gif {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.e-simbolo {
+    font-size: 1.75rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--sky-ciano), var(--kaue-rosa));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* --- SEÇÃO DO CRONÔMETRO CENTRALIZADO --- */
+.info-tempo {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.subtitulo {
+    font-size: 0.95rem;
+    color: #cbd5e1;
+    font-weight: 600;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.3px;
+}
+
+.icon-heart {
+    color: var(--kaue-rosa);
+    animation: pulsoOtimizado 1.2s infinite ease-in-out;
+    will-change: transform;
+    filter: drop-shadow(0 0 6px var(--kaue-rosa));
+}
+
+@keyframes pulsoOtimizado {
+    0%, 100% { transform: scale(1) translateZ(0); }
+    50% { transform: scale(1.18) translateZ(0); }
+}
+
+/* Arquitetura Linear Autoadaptativa para as 7 Unidades de Tempo */
+.contador-horizontal { 
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.tempo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 calc(14.28% - 8px);
+    min-width: 60px;
+}
+
+/* Estilização Premium dos Blocos Numéricos */
+.valor { 
+    font-weight: 800;
+    font-size: clamp(1.1rem, 2vw, 1.35rem); /* Dimensionamento inteligente fluido */
+    background: rgba(10, 12, 22, 0.6); 
+    padding: 12px 2px; 
+    border-radius: 14px; 
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    border: 2px solid transparent;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.valor-ativo {
+    color: #ffffff;
+    border-color: rgba(253, 244, 205, 0.8);
+    box-shadow: 0 4px 15px rgba(253, 244, 205, 0.12),
+                inset 0 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+.tempo-item:hover .valor-ativo {
+    transform: translateY(-4px);
+    background: rgba(253, 244, 205, 0.08);
+    border-color: var(--kaue-amarelo);
+    box-shadow: 0 10px 25px rgba(253, 244, 205, 0.25);
+}
+
+.valor-zero {
+    color: #475569;
+    border-color: rgba(255, 255, 255, 0.03);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+.label { 
+    font-size: 0.62rem;
+    text-transform: uppercase; 
+    margin-top: 8px; 
+    color: var(--texto-mutado); 
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.tempo-item:hover .label {
+    color: #94a3b8;
+}
+
+/* --- DESIGN RESPONSIVO REPROGRAMADO (MOBILE ULTRA-FIT) --- */
+@media (max-width: 600px) {
+    .card { 
+        margin: 95px auto 16px auto !important;
+        padding: 2.2rem 1rem 2rem 1rem; 
+        border-radius: 24px;
+        width: calc(100% - 10px);
+    }
+    
+    .efeito-img {     
+        height: 38px;
+        top: 24px;
+        transform: none;
+    }
+    .efeito-esquerdo { left: 16px; }
+    .efeito-direito { right: 16px; }
+
+    .topo-relacionamento {
+        gap: 16px;
+        margin-top: 12px;
+        margin-bottom: 2rem;
+    }
+
+    .perfil-wrapper { 
+        width: 82px; 
+        height: 82px; 
+    }
+    
+    .nome { font-size: 1.15rem; }
+    
+    .centro-container { min-width: 60px; gap: 4px; }
+    .meme-wrapper { width: 58px; height: 58px; }
+    .e-simbolo { font-size: 1.45rem; }
+
+    .subtitulo { font-size: 0.88rem; margin-bottom: 20px; }
+
+    /* Trava estrita anti-quebra linear para as caixas de tempo ficarem sempre lado a lado */
+    .contador-horizontal { 
+        display: flex;
+        flex-wrap: nowrap; 
+        gap: 4px; 
+        max-width: 100%;
+    }
+    
+    .tempo-item { 
+        flex: 1 1 calc(14.28% - 4px);
+        min-width: 0; 
+    }
+
+    .valor { 
+        font-size: clamp(0.85rem, 3.2vw, 1.1rem); /* Escalonamento matemático baseado na largura da tela */
+        padding: 8px 0; 
+        border-radius: 10px; 
+    }
+    
+    .label { 
+        font-size: 0.48rem; 
+        margin-top: 6px; 
+        letter-spacing: 0.2px;
+        white-space: nowrap; /* Impede que palavras como "Segundos" quebrem linha */
+    }
+}

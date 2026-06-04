@@ -1,0 +1,222 @@
+/* =========================================================
+   👑 CONTAINER LATERAL PREMIUM
+   ========================================================= */
+#painel-sobre {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: rgba(10, 12, 22, 0.96);
+    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 25px 0 60px rgba(0, 0, 0, 0.75);
+    box-sizing: border-box;
+    
+    /* Configuração ativa padrão: Visível e clicável */
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    
+    /* Transição de alto desempenho calibrada via Bezier */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.4s ease,
+                visibility 0.4s ease;
+    
+    /* Prepara a GPU para evitar oscilações em processadores mobile */
+    will-change: transform, opacity;
+}
+
+/* FIX DA ANIMAÇÃO: Substitui o 'display: none' antigo mantendo o efeito deslizante perfeito */
+#painel-sobre.paineis-ocultos {
+    transform: translateX(-100%) translateZ(0) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+.painel-scroll-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 3rem 2rem 2rem 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch; /* Rolagem elástica ultra suave no iOS */
+}
+
+/* Customização fina da barra de rolagem interna combinando com o app */
+.painel-scroll-wrapper::-webkit-scrollbar { 
+    width: 5px; 
+}
+.painel-scroll-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+.painel-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+.painel-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--sky-ciano, #00e5ff);
+}
+
+/* =========================================================
+   ⚡ ELEMENTOS DE ESTRUTURA
+   ========================================================= */
+.painel-secao-topo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.painel-avatar-site {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 4px 15px rgba(244, 114, 182, 0.35));
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.painel-titulo-principal {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--texto-claro, #ffffff);
+    letter-spacing: -0.3px;
+    margin: 0;
+}
+
+.painel-linha-separadora {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02), transparent);
+    margin: 2rem 0;
+    flex-shrink: 0;
+}
+
+.painel-secao-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.painel-label-secao {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--kaue-amarelo, #fdf4cd);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 4px 0;
+}
+
+/* =========================================================
+   🔗 LISTA DE LINKS INTERATIVOS
+   ========================================================= */
+.painel-links-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.painel-item-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 14px 18px;
+    border-radius: 16px;
+    color: #e2e8f0;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.painel-item-decoracao {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: linear-gradient(180deg, var(--kaue-rosa, #f472b6), var(--sky-ciano, #00e5ff));
+    border-radius: 0 4px 4px 0;
+    transition: height 0.3s ease;
+}
+
+.painel-item-favicon {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.06); 
+    padding: 2px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.painel-item-texto {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-left: 14px;
+}
+
+.painel-item-seta {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+/* Efeito Hover Reativo Premium */
+.painel-item-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(0, 229, 255, 0.3);
+    color: #ffffff;
+}
+
+.painel-item-link:hover .painel-item-decoracao {
+    height: 65%;
+}
+
+.painel-item-link:hover .painel-item-favicon {
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+}
+
+.painel-item-link:hover .painel-item-seta {
+    transform: translateX(4px);
+    color: var(--sky-ciano, #00e5ff);
+}
+
+#container-creditos-interno {
+    margin-top: auto;
+    padding-top: 1.5rem;
+}
+
+/* =========================================================
+   📱 RESPONSIVIDADE (MOBILE ULTRA-FIT)
+   ========================================================= */
+@media (max-width: 767px) {
+    #painel-sobre {
+        width: 100vw;
+        /* FIX DE ALTURA: O uso de 100dvh impede que a barra de endereços do Chrome/Safari mobile oculte a secao de créditos no rodapé */
+        height: 100dvh;
+        border-right: none;
+    }
+    .painel-scroll-wrapper { 
+        padding: 2.5rem 1.25rem 2rem 1.25rem; 
+    }
+}
+
+@media (min-width: 768px) {
+    #painel-sobre { 
+        width: 380px; 
+        height: 100vh; 
+    }
+}
