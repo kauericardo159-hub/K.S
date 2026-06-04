@@ -2,7 +2,7 @@
   "name": "K & S - Conexão Eternizada",
   "short_name": "K & S",
   "description": "Espaço premium dedicado à preservação da nossa história, memórias e conexão eterna.",
-  "id": "/ks-conexao-eternizada-v1",
+  "id": "/ks-conexao-eternizada-v1.5",
   "start_url": "./index.html?update=2026_v2",
   "scope": "./",
   "display": "fullscreen",
