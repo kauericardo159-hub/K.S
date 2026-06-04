@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>K & S - Relacionamento de Kauê & Sky</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000"> <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="card1.css">
+    <link rel="stylesheet" href="card2.css">
+  <link rel="stylesheet" href="painel.css">
+</head>
+<body>
 
+    <script>
+        // Configurações do modo manutenção
+        const emManutencaoManual = true; 
+        const dataLiberacaoTexto = "2026-05-23T23:59:00"; // Atualizado de forma inteligente para maio de 2026
+        
+        // Conteúdo da tela de erro
+        const tituloManutencao = "pequena atualização & correções";
+        const mensagemManutencao = "O site está recebendo uma atualização, por favor tenha paciencia, será liberado assim que aparecer um Cronômetro de liberação. <br><br> • KaueTheProtogen";
+
+        let emManutencao = emManutencaoManual;
+        let dataAlvoObjeto = null;
+
+        if (!emManutencao && dataLiberacaoTexto) {
+            dataAlvoObjeto = new Date(dataLiberacaoTexto);
+            if (!isNaN(dataAlvoObjeto.getTime())) {
+                if (new Date() < dataAlvoObjeto) emManutencao = true;
+            }
+        }
+    </script>
+
+    <script src="fontes.js" defer></script>
+    <script src="manutencao.js" defer></script>
+    
+    <script src="card1.js" defer></script>
+    <script src="card2.js" defer></script>
+    <script src="creditos.js" defer></script>
+    
+    <script src="estrelas.js" defer></script>
+    <script src="efeito1.js" defer></script>
+    <script src="botao.js" defer></script>
+    <script src="botao2.js" defer></script>
+    <script src="botaotexto.js" defer></script>
+    
+    <script src="pwa-style.js" defer></script>
+    <script src="protecao.js" defer></script>
+    <script src="clique-limpo.js" defer></script>
+    <script src="atualizacao.js" defer></script> 
+    <script src="painel.js" defer></script> <script>
+
+        (function() {
+            'use strict';
+
+            // Registro Otimizado do Service Worker com a ponte de escuta para atualizações instantâneas
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('./sw.js')
+                        .then(reg => {
+                            console.log('K & S: Malha PWA Ativa');
+                            
+                            // Solicita persistência de armazenamento (se suportado pelo navegador)
+                            if (navigator.storage && navigator.storage.persist) {
+                                navigator.storage.persist().then(persistent => {
+                                    console.log('K & S: Persistência de dados ' + (persistent ? 'autorizada' : 'negada'));
+                                });
+                            }
+                        })
+                        .catch(err => console.error('K & S: Falha na Sincronização do Service Worker', err));
+                });
+            }
+
+            // Otimização de Scroll e Estabilidade de Tela (Impede o "pull-to-refresh" irritante)
+            const style = document.createElement('style');
+            style.textContent = `
+                html, body {
+                    overscroll-behavior-y: contain;
+                    -webkit-overflow-scrolling: touch;
+                    overflow-x: hidden;
+                    scroll-behavior: smooth;
+                }
+            `;
+            document.head.appendChild(style);
+        })();
+    </script>
+
+</body>
+</html>
