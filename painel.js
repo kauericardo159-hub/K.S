@@ -8,7 +8,7 @@
     // 📝 CENTRAL DE LINKS (HUB DE ECOSSISTEMA)
     // ==========================================
     const meusSites = [
-        { nome: "VersosNossos", url: "https://kauericardo159-hub.github.io/Textoteca/index.html" }
+        { nome: "VersosNossos", url: "kauericardo159-hub.github.io/VersosNossos/" }
     ];
 
     // ==========================================
