@@ -6,7 +6,7 @@
     // ==========================================
     // Insira seus links abaixo. Se deixar vazio (""), o BOTÃO NÃO vai aparecer.
     const redesAutor = {
-        github: "https://github.com/KaueTheProtogen",
+        github: "https://github.com/kauericardo159-hub",
         discord: "", // Exemplo: "https://discord.gg/seu-link"
         twitter: ""  // Exemplo: "https://twitter.com/seu-perfil"
     };
