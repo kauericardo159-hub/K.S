@@ -1,8 +1,9 @@
 (function() {
     'use strict';
 
-    // Trava de segurança para o modo manutenção
-    if (typeof emManutencao !== 'undefined' && emManutencao === true) return;
+    // Trava de segurança para evitar duplicidade ou execução em modo manutenção
+    if (document.getElementById('painel-sobre')) return;
+    if (typeof window.emManutencao !== 'undefined' && window.emManutencao === true) return;
 
     // ==========================================
     // 📝 CENTRAL DE LINKS (HUB DE ECOSSISTEMA)
@@ -16,34 +17,61 @@
     // ==========================================
     const painelContainer = document.createElement('div');
     painelContainer.id = 'painel-sobre';
-    // Inicializa oculto. O script de gatilho (geralmente botao.js) altera a classe para exibir
+    
+    // Mantém a classe sincronizada com o botão para controle de visibilidade
     painelContainer.className = 'paineis-ocultos';
 
-    // Geração otimizada da árvore de links via Array.map (evita mutações repetitivas de string)
+    // Geração da árvore de links com varredura avançada para domínios e GitHub Pages
     const linksHTML = meusSites.map(site => {
-        let urlIcone = './icon-192.png'; // Fallback nativo e limpo mapeado no Service Worker
+        let urlIcone = './icon-192.png'; 
 
-        // Verifica se a URL é externa para capturar o favicon via API de alta resolução do Google
         if (!site.url.startsWith('./') && !site.url.startsWith('/') && site.url.includes('://')) {
             try {
-                const dominio = new URL(site.url).hostname;
-                urlIcone = `https://www.google.com/s2/favicons?domain=${dominio}&sz=64`;
+                // Usamos a URL completa no serviço gstatic do Google, que resolve melhor caminhos de subpastas do GitHub
+                urlIcone = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(site.url)}&sz=64`;
             } catch (e) {
                 // Mantém o fallback caso a URL seja malformada
             }
         }
 
+        // Script de Erro Inteligente em Cadeia:
+        // 1. Se falhar com a URL completa, tenta buscar apenas pelo domínio limpo (DuckDuckGo).
+        // 2. Se falhar, tenta buscar o favicon.ico direto na raiz do projeto (ex: site.url + /favicon.ico).
+        // 3. Se tudo falhar, usa o logo padrão do app (./icon-192.png).
+        const fallbackScript = `
+            this.onerror = null;
+            try {
+                const urlObj = new URL('${site.url}');
+                const dominio = urlObj.hostname;
+                
+                // Passo 1: Tenta DuckDuckGo com o domínio
+                this.src = 'https://icons.duckduckgo.com/ip3/' + dominio + '.ico';
+                
+                this.onerror = () => {
+                    // Passo 2: Tenta ler o arquivo favicon diretamente da raiz do próprio site
+                    this.src = urlObj.origin + urlObj.pathname + (urlObj.pathname.endsWith('/') ? '' : '/') + 'favicon.ico';
+                    
+                    this.onerror = () => {
+                        // Passo 3: Fallback final seguro
+                        this.src = './icon-192.png';
+                    };
+                };
+            } catch(err) {
+                this.src = './icon-192.png';
+            }
+        `;
+
         return `
             <a href="${site.url}" class="painel-item-link" target="_blank" rel="noopener noreferrer">
                 <div class="painel-item-decoracao"></div>
-                <img src="${urlIcone}" class="painel-item-favicon" alt="Favicon" onerror="this.src='./icon-192.png'">
+                <img src="${urlIcone}" class="painel-item-favicon" alt="Favicon" onerror="${fallbackScript.replace(/\s+/g, ' ')}">
                 <span class="painel-item-texto">${site.nome}</span>
                 <i class="fa-solid fa-chevron-right painel-item-seta"></i>
             </a>
         `;
     }).join('');
 
-    // Injeção da infraestrutura semântica do painel
+    // Injeção da estrutura interna do painel
     painelContainer.innerHTML = `
         <div class="painel-scroll-wrapper">
             <div class="painel-secao-topo">
@@ -66,10 +94,9 @@
         </div>
     `;
 
-    // Injeção segura no DOM assim que o corpo da página estiver pronto
+    // Injeção segura e imediata no DOM
     if (document.body) {
         document.body.appendChild(painelContainer);
-        // Despacha um evento customizado avisando que o painel está montado no DOM
         window.dispatchEvent(new CustomEvent('painelConexaoMontado'));
     } else {
         window.addEventListener('DOMContentLoaded', () => {

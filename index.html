@@ -6,6 +6,8 @@
     <title>K & S - Relacionamento de Kauê & Sky</title>
     
     <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="icon-192.png?v=3" type="image/png">
+    
     <meta name="theme-color" content="#000000"> 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -25,8 +27,10 @@
 
     <script>
         // Usamos 'var' aqui para blindar o escopo e garantir que TODOS os scripts externos consigam ler essas configurações sem travar
-        var emManutencaoManual = true; 
-        var dataLiberacaoTexto = "2026-06-04T14:30:00"; // Atualizado para uma data futura de 2026 para fins de testes
+        var emManutencaoManual = false; 
+        
+        // CORREÇÃO: Alterado para uma data futura em 2026 para que o sistema valide a manutenção corretamente nos testes
+        var dataLiberacaoTexto = "2026-07-15T23:59:00"; 
         
         // Conteúdo da tela de erro
         var tituloManutencao = "pequena atualização &amp; correções";
@@ -43,14 +47,12 @@
         }
     </script>
 
-    <!-- Estrutura de Scripts com carregamento assíncrono ordenado -->
     <script src="fontes.js" defer></script>
     <script src="manutencao.js" defer></script>
-    
+  
     <script src="card1.js" defer></script>
     <script src="card2.js" defer></script>
-    <script src="creditos.js" defer></script>
-    
+  
     <script src="estrelas.js" defer></script>
     <script src="efeito1.js" defer></script>
     <script src="botao.js" defer></script>
@@ -61,8 +63,10 @@
     <script src="protecao.js" defer></script>
     <script src="clique-limpo.js" defer></script>
     <script src="atualizacao.js" defer></script> 
-    <script src="painel.js" defer></script> 
-
+    <script src="painel.js" defer></script>
+    <script src="creditos.js" defer></script>
+    <script src="fundo.js" defer></script> 
+  
     <script>
         (function() {
             'use strict';
