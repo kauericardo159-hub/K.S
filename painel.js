@@ -21,39 +21,38 @@
     // Mantém a classe sincronizada com o botão para controle de visibilidade
     painelContainer.className = 'paineis-ocultos';
 
-    // Geração da árvore de links com varredura avançada para domínios e GitHub Pages
+    // Geração da árvore de links com prioridade absoluta para a pasta assets/sites/
     const linksHTML = meusSites.map(site => {
-        let urlIcone = './icon-192.png'; 
+        // 1. Definição do caminho local prioritário baseado no nome do site (ex: versosnossos.png)
+        const nomeArquivoNormalizado = site.nome.toLowerCase().replace(/\s+/g, '');
+        const urlIconeLocal = `./assets/sites/${nomeArquivoNormalizado}.png`;
 
-        if (!site.url.startsWith('./') && !site.url.startsWith('/') && site.url.includes('://')) {
-            try {
-                // Usamos a URL completa no serviço gstatic do Google, que resolve melhor caminhos de subpastas do GitHub
-                urlIcone = `https://www.google.com/s2/favicons?domain=${encodeURIComponent(site.url)}&sz=64`;
-            } catch (e) {
-                // Mantém o fallback caso a URL seja malformada
-            }
-        }
-
-        // Script de Erro Inteligente em Cadeia:
-        // 1. Se falhar com a URL completa, tenta buscar apenas pelo domínio limpo (DuckDuckGo).
-        // 2. Se falhar, tenta buscar o favicon.ico direto na raiz do projeto (ex: site.url + /favicon.ico).
-        // 3. Se tudo falhar, usa o logo padrão do app (./icon-192.png).
+        // Mecanismo de Fallback Inteligente em Cadeia se a imagem local falhar:
+        // Passo 1: Se o .png local não existir, tenta o gstatic do Google com a URL completa.
+        // Passo 2: Se falhar, tenta o DuckDuckGo com o domínio limpo.
+        // Passo 3: Se falhar, tenta buscar o favicon.ico na raiz do site remoto.
+        // Passo 4: Fallback definitivo usando o ícone padrão do aplicativo.
         const fallbackScript = `
             this.onerror = null;
             try {
-                const urlObj = new URL('${site.url}');
-                const dominio = urlObj.hostname;
-                
-                // Passo 1: Tenta DuckDuckGo com o domínio
-                this.src = 'https://icons.duckduckgo.com/ip3/' + dominio + '.ico';
+                // Passo 1: Tenta o serviço premium do Google usando a URL do site
+                this.src = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent('${site.url}') + '&sz=64';
                 
                 this.onerror = () => {
-                    // Passo 2: Tenta ler o arquivo favicon diretamente da raiz do próprio site
-                    this.src = urlObj.origin + urlObj.pathname + (urlObj.pathname.endsWith('/') ? '' : '/') + 'favicon.ico';
+                    const urlObj = new URL('${site.url}');
+                    const dominio = urlObj.hostname;
+                    
+                    // Passo 2: Tenta o DuckDuckGo
+                    this.src = 'https://icons.duckduckgo.com/ip3/' + dominio + '.ico';
                     
                     this.onerror = () => {
-                        // Passo 3: Fallback final seguro
-                        this.src = './icon-192.png';
+                        // Passo 3: Tenta puxar direto da raiz do servidor deles
+                        this.src = urlObj.origin + urlObj.pathname + (urlObj.pathname.endsWith('/') ? '' : '/') + 'favicon.ico';
+                        
+                        this.onerror = () => {
+                            // Passo 4: Fallback final de segurança
+                            this.src = './icon-192.png';
+                        };
                     };
                 };
             } catch(err) {
@@ -64,7 +63,7 @@
         return `
             <a href="${site.url}" class="painel-item-link" target="_blank" rel="noopener noreferrer">
                 <div class="painel-item-decoracao"></div>
-                <img src="${urlIcone}" class="painel-item-favicon" alt="Favicon" onerror="${fallbackScript.replace(/\s+/g, ' ')}">
+                <img src="${urlIconeLocal}" class="painel-item-favicon" alt="Favicon ${site.nome}" onerror="${fallbackScript.replace(/\s+/g, ' ')}">
                 <span class="painel-item-texto">${site.nome}</span>
                 <i class="fa-solid fa-chevron-right painel-item-seta"></i>
             </a>

@@ -6,11 +6,11 @@
     top: 0;
     left: 0;
     z-index: 9999;
-    background: rgba(10, 12, 22, 0.96);
-    border-right: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(10, 12, 22, 0.95); /* Tom oficial var(--bg-absoluto) com transparência */
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
-    box-shadow: 25px 0 60px rgba(0, 0, 0, 0.75);
+    box-shadow: 25px 0 60px rgba(0, 0, 0, 0.6);
     box-sizing: border-box;
     
     /* Configuração ativa padrão: Visível e clicável */
@@ -28,19 +28,20 @@
     will-change: transform, opacity;
 }
 
-/* FIX DA ANIMAÇÃO: Substitui o 'display: none' antigo mantendo o efeito deslizante perfeito */
+/* FIX DA ANIMAÇÃO: Remove a sombra e a visibilidade para liberar cliques no fundo do site */
 #painel-sobre.paineis-ocultos {
     transform: translateX(-100%) translateZ(0) !important;
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+    box-shadow: none !important; /* CORREÇÃO: Impede que a sombra bloqueie a tela do usuário */
 }
 
 .painel-scroll-wrapper {
     width: 100%;
     height: 100%;
     overflow-y: auto;
-    padding: 3rem 2rem 2rem 2rem;
+    padding: 3.5rem 2rem 2rem 2rem;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -49,13 +50,13 @@
 
 /* Customização fina da barra de rolagem interna combinando com o app */
 .painel-scroll-wrapper::-webkit-scrollbar { 
-    width: 5px; 
+    width: 4px; 
 }
 .painel-scroll-wrapper::-webkit-scrollbar-track {
     background: transparent;
 }
 .painel-scroll-wrapper::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.06);
     border-radius: 10px;
 }
 .painel-scroll-wrapper::-webkit-scrollbar-thumb:hover {
@@ -69,7 +70,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .painel-avatar-site {
@@ -77,7 +78,7 @@
     height: 46px;
     object-fit: contain;
     border-radius: 12px;
-    filter: drop-shadow(0 4px 15px rgba(244, 114, 182, 0.35));
+    filter: drop-shadow(0 4px 15px rgba(0, 229, 255, 0.25)); /* Brilho em sintonia com o Ciano Sky */
     border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -85,7 +86,7 @@
     font-family: 'Poppins', sans-serif !important;
     font-size: 1.35rem;
     font-weight: 800;
-    color: var(--texto-claro, #ffffff);
+    color: var(--texto-claro, #f8fafc);
     letter-spacing: -0.3px;
     margin: 0;
 }
@@ -93,7 +94,7 @@
 .painel-linha-separadora {
     height: 1px;
     width: 100%;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02), transparent);
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02), transparent);
     margin: 2rem 0;
     flex-shrink: 0;
 }
@@ -106,12 +107,18 @@
 
 .painel-label-secao {
     font-family: 'Poppins', sans-serif !important;
-    font-size: 0.82rem;
+    font-size: 0.75rem;
     font-weight: 700;
-    color: var(--kaue-amarelo, #fdf4cd);
+    color: #64748b; /* Tom fosco elegante por padrão */
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     margin: 0 0 4px 0;
+    transition: color 0.3s ease;
+}
+
+/* Brilha o título da seção quando o usuário interage com o painel */
+#painel-sobre:hover .painel-label-secao {
+    color: var(--sky-ciano, #00e5ff);
 }
 
 /* =========================================================
@@ -129,10 +136,10 @@
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.04);
     padding: 14px 18px;
-    border-radius: 16px;
-    color: #e2e8f0;
+    border-radius: 14px; /* Combinando com o raio de borda do botao2.js */
+    color: #94a3b8;
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     overflow: hidden;
@@ -147,46 +154,54 @@
     height: 0;
     background: linear-gradient(180deg, var(--kaue-rosa, #f472b6), var(--sky-ciano, #00e5ff));
     border-radius: 0 4px 4px 0;
-    transition: height 0.3s ease;
+    transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .painel-item-favicon {
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     object-fit: contain;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.06); 
-    padding: 2px;
-    transition: transform 0.3s ease, filter 0.3s ease;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04); 
+    padding: 3px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
 .painel-item-texto {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
     margin-left: 14px;
+    transition: color 0.3s ease;
 }
 
 .painel-item-seta {
     margin-left: auto;
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.2);
+    color: rgba(255, 255, 255, 0.15);
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
 }
 
-/* Efeito Hover Reativo Premium */
+/* Efeito Hover Reativo Cyber-Premium */
 .painel-item-link:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(0, 229, 255, 0.3);
+    background: rgba(0, 229, 255, 0.03); /* Leve reflexo Ciano interno */
+    border-color: rgba(0, 229, 255, 0.25);
     color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .painel-item-link:hover .painel-item-decoracao {
-    height: 65%;
+    height: 100%; /* Expande o detalhe lateral por completo */
+}
+
+.painel-item-link:hover .painel-item-texto {
+    color: #ffffff;
 }
 
 .painel-item-link:hover .painel-item-favicon {
-    transform: scale(1.1);
-    filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.3));
+    transform: scale(1.08) rotate(3deg);
+    filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.4));
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .painel-item-link:hover .painel-item-seta {
@@ -196,7 +211,7 @@
 
 #container-creditos-interno {
     margin-top: auto;
-    padding-top: 1.5rem;
+    padding-top: 2rem;
 }
 
 /* =========================================================
@@ -205,12 +220,11 @@
 @media (max-width: 767px) {
     #painel-sobre {
         width: 100vw;
-        /* FIX DE ALTURA: O uso de 100dvh impede que a barra de endereços do Chrome/Safari mobile oculte a secao de créditos no rodapé */
-        height: 100dvh;
+        height: 100dvh; /* Evita que o topo/rodapé suma atrás das barras de navegação mobile */
         border-right: none;
     }
     .painel-scroll-wrapper { 
-        padding: 2.5rem 1.25rem 2rem 1.25rem; 
+        padding: 4.5rem 1.5rem 2rem 1.5rem; /* Mais espaço no topo para o botão hambúrguer mobile */
     }
 }
 

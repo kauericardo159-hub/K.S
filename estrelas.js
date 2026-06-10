@@ -1,8 +1,8 @@
 (function() {
     'use strict';
 
-    // Trava de segurança para o modo manutenção
-    if (typeof emManutencao !== 'undefined' && emManutencao === true) return;
+    // CORREÇÃO: Alinhamento seguro com o escopo global do index.html
+    if (typeof window.emManutencao !== 'undefined' && window.emManutencao === true) return;
 
     // --- 1. INJEÇÃO DE ARQUITETURA VISUAL E ACELERAÇÃO DE HARDWARE ---
     const style = document.createElement('style');
@@ -20,15 +20,7 @@
             will-change: opacity;
         }
 
-        /* Margem de respiro inferior para permitir rolagem e visualização completa da foto de fundo */
-        body::after {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 380px; 
-            pointer-events: none;
-        }
-
+        /* REMOVIDO: O body::after que forçava a rolagem de 380px para baixo foi eliminado */
         html {
             scroll-behavior: smooth;
         }
@@ -102,12 +94,10 @@
             // Ciclo trigonométrico senoidal contínuo para oscilação orgânica de brilho
             e.fase += e.velocidadeCintilacao;
             const oscilacao = (Math.sin(e.fase) + 1) / 2;
-            const opacidadeAtual = e.opacidadeBase + oscilacao * (0.80 - e.opacidadeBase);
+            const opacidadeFinal = e.opacidadeBase + oscilacao * (0.80 - e.opacidadeBase);
 
-            // Efeito Fade-Out Base: Evita poluição visual perto do rodapé do PWA
-            const margemDesaparecimento = canvas.height * 0.25; 
-            const fatorDesaparecimentoBase = Math.min(1, (canvas.height - e.y) / margemDesaparecimento);
-            const opacidadeFinal = opacidadeAtual * fatorDesaparecimentoBase;
+            /* REMOVIDO: O cálculo de fade-out da margem inferior foi removido. 
+               As estrelas mantêm o brilho 100% íntegro pela tela toda. */
 
             // PERFORMANCE BOOSTER: Aplica efeito Glow de desfoque de forma controlada apenas no Desktop
             if (window.innerWidth > 600 && (e.cor.g !== 255 || e.tamanho > 12)) {

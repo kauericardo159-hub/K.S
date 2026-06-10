@@ -93,9 +93,9 @@
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
         }
 
-        /* Degradê reativo oficial do ecossistema: Rosa Kauê & Ciano Sky */
+        /* Degradê reativo oficial atualizado: Rosa Kauê & Ciano Puro */
         .btn-pwa-atualizar {
-            background: linear-gradient(135deg, var(--kaue-rosa, #f472b6), var(--sky-ciano, #00e5ff));
+            background: linear-gradient(135deg, var(--kaue-rosa, #f472b6), var(--puro-ciano, #00e5ff));
             color: #ffffff;
             box-shadow: 0 4px 15px rgba(0, 229, 255, 0.2);
         }
@@ -114,7 +114,7 @@
             transform: scale(0.98);
         }
     `;
-    document.head.appendChild(estilos); // CORRIGIDO: de 'stilos' para 'estilos'
+    document.head.appendChild(estilos);
 
     // --- 2. MOTOR DE CAPTURA DO CICLO DE VIDA DO SERVICE WORKER ---
     if ('serviceWorker' in navigator) {
@@ -167,7 +167,7 @@
         banner.className = 'prompt-atualizacao-pwa';
         banner.innerHTML = `
             <div class="prompt-pwa-topo">
-                <img src="./icon-192.png" class="prompt-pwa-avatar" alt="Logotipo K&S">
+                <img src="./icon-192.png" class="prompt-pwa-avatar" alt="Logotipo K&P">
                 <div class="prompt-pwa-txt">
                     <span class="prompt-pwa-titulo">Atualização Disponível</span>
                     <span class="prompt-pwa-desc">Novas melhorias prontas para o nosso app!</span>

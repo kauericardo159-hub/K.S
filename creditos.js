@@ -1,14 +1,16 @@
 (function() {
     'use strict';
 
+    // Evita injeções duplicadas em mutações do DOM causadas por atualizações do Service Worker
+    if (document.getElementById('pwa-componente-creditos')) return;
+
     // ==========================================
     // 1. CONFIGURAÇÃO DAS REDES SOCIAIS
     // ==========================================
-    // Insira seus links abaixo. Se deixar vazio (""), o BOTÃO NÃO vai aparecer.
     const redesAutor = {
         github: "https://github.com/kauericardo159-hub",
-        discord: "", // Exemplo: "https://discord.gg/seu-link"
-        twitter: ""  // Exemplo: "https://twitter.com/seu-perfil"
+        discord: "", 
+        twitter: ""  
     };
 
     // ==========================================
@@ -23,7 +25,7 @@
     }
 
     // ==========================================
-    // 3. ESTILIZAÇÃO TRANSPARENTE E PREMIUN
+    // 3. ESTILIZAÇÃO TRANSPARENTE E PREMIUM
     // ==========================================
     const estilos = document.createElement('style');
     estilos.textContent = `
@@ -37,6 +39,7 @@
             text-align: center;
             width: 100%;
             box-sizing: border-box;
+            user-select: none;
         }
 
         .creditos-label {
@@ -49,7 +52,6 @@
             margin-bottom: -4px;
         }
 
-        /* Perfil alinhado verticalmente (Foto encima do nome) */
         .creditos-perfil {
             display: flex;
             flex-direction: column;
@@ -60,15 +62,15 @@
         .creditos-avatar {
             width: 65px;
             height: 65px;
-            border-radius: 50%; /* Foto perfeitamente circular */
+            border-radius: 50%;
             object-fit: cover;
             border: 2px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .creditos-transparente:hover .creditos-avatar {
-            transform: scale(1.04);
+            transform: scale(1.06);
         }
 
         .creditos-nome {
@@ -79,7 +81,6 @@
             letter-spacing: -0.2px;
         }
 
-        /* Container dos Botões das Redes Sociais */
         .creditos-redes {
             display: flex;
             justify-content: center;
@@ -88,14 +89,13 @@
             width: 100%;
         }
 
-        /* Botões de Redes Estilo Premium */
         .creditos-rede-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
             width: 44px;
             height: 44px;
-            border-radius: 14px; /* Formato arredondado moderno */
+            border-radius: 14px;
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.06);
             color: #94a3b8;
@@ -105,7 +105,6 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
         }
 
-        /* Efeitos individuais de foco e brilho nos botões */
         .btn-github:hover {
             background: rgba(255, 255, 255, 0.08);
             border-color: #ffffff;
@@ -130,7 +129,6 @@
             transform: translateY(-2px);
         }
 
-        /* Rodapé de Informações */
         .creditos-footer {
             margin-top: 10px;
             display: flex;
@@ -139,7 +137,6 @@
             gap: 8px;
         }
 
-        /* Texto: Feito com carinho e com ♡ */
         .creditos-carinho {
             font-size: 0.85rem;
             color: #64748b;
@@ -150,7 +147,7 @@
         }
 
         .coracao-pulsante {
-            color: #f472b6; /* Rosa sutil combinando com seu tema */
+            color: #f472b6;
             display: inline-block;
             animation: baterCoracao 1s infinite alternate cubic-bezier(0.25, 0.8, 0.25, 1);
         }
@@ -204,13 +201,15 @@
     // 5. MONTAGEM DO HTML ATUALIZADO
     // ==========================================
     const elementoCreditos = document.createElement('div');
+    elementoCreditos.id = 'pwa-componente-creditos';
     elementoCreditos.className = 'creditos-transparente';
     
+    // MELHORIA: Endpoint estático do GitHub, imune a mudanças internas do banco de dados deles
     elementoCreditos.innerHTML = `
         <span class="creditos-label">Desenvolvido Por:</span>
         
         <div class="creditos-perfil">
-            <img src="https://avatars.githubusercontent.com/u/250105175?v=4" class="creditos-avatar" alt="KaueTheProtogen">
+            <img src="https://github.com/kauericardo159-hub.png" class="fancy-loading creditos-avatar" alt="KaueTheProtogen" onerror="this.src='./icon-192.png'">
             <span class="creditos-nome">KaueTheProtogen</span>
         </div>
 
@@ -229,10 +228,11 @@
     `;
 
     // ==========================================
-    // 6. INJEÇÃO INTELIGENTE MULTI-TELAS
+    // 6. INJEÇÃO INTELIGENTE INTEGRADA AO WINDOW
     // ==========================================
     setTimeout(() => {
-        const estaEmManutencao = (typeof emManutencao !== 'undefined' && emManutencao === true);
+        // CORREÇÃO: Alinhado perfeitamente com a var global definida no index.html
+        const estaEmManutencao = (typeof window.emManutencao !== 'undefined' && window.emManutencao === true);
         const conteinerPainel = document.getElementById('container-creditos-interno');
         const conteinerErro = document.querySelector('.container-erro');
 

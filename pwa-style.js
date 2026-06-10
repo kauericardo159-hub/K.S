@@ -1,19 +1,21 @@
 (function() {
     'use strict';
 
-    // Não executa se estiver em manutenção
-    if (typeof emManutencao !== 'undefined' && emManutencao === true) return;
+    // Trava de segurança para evitar injeções duplicadas e modo manutenção global
+    if (document.getElementById('pwa-estilos-cinematograficos')) return;
+    if (typeof window.emManutencao !== 'undefined' && window.emManutencao === true) return;
 
     // ==========================================
     // 1. INJEÇÃO DE ESTILOS CINEMATOGRÁFICOS (UI/UX)
     // ==========================================
     const estilos = document.createElement('style');
+    estilos.id = 'pwa-estilos-cinematograficos';
     estilos.textContent = `
         /* --- TELA DE INTRODUÇÃO (SPLASH SCREEN PREMIUM) --- */
         .splash-pwa-container {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
-            background: #0a0c16; /* Sincronizado com o seu manifest.json */
+            background: #0a0c16;
             z-index: 100000;
             display: flex;
             flex-direction: column;
@@ -29,7 +31,6 @@
             justify-content: center;
         }
 
-        /* Brilho pulsante de fundo no carregamento */
         .splash-logo-glow {
             position: absolute;
             width: 140px;
@@ -64,7 +65,8 @@
             content: '';
             position: absolute;
             left: 0; top: 0; height: 100%; width: 40%;
-            background: linear-gradient(90deg, #f472b6, #00e5ff);
+            /* ATUALIZADO: Substituído azul genérico pelas variáveis oficiais de Kauê & Puro */
+            background: linear-gradient(90deg, var(--kaue-rosa, #f472b6), var(--puro-ciano, #00e5ff));
             border-radius: 10px;
             animation: carregarSplash 1.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
         }
@@ -83,7 +85,7 @@
             100% { left: 100%; }
         }
 
-        /* --- CARD DE INSTALAÇÃO GLASSMORPHISM (VISÃO NAVEGADOR) --- */
+        /* --- CARD DE INSTALAÇÃO GLASSMORPHISM --- */
         .banner-instalacao-pwa {
             position: fixed;
             bottom: 24px;
@@ -99,7 +101,7 @@
             border-radius: 20px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
                         inset 0 1px 0 rgba(255, 255, 255, 0.05);
-            z-index: 9998;
+            z-index: 9998; /* Posicionado estrategicamente abaixo do botao2.js (10000) e painel-sobre (9999) */
             display: flex;
             align-items: center;
             gap: 12px;
@@ -145,7 +147,8 @@
         }
 
         .btn-instalar-pwa {
-            background: linear-gradient(135deg, #f472b6, #3b82f6);
+            /* ATUALIZADO: Gradiente recalibrado com a identidade Puro */
+            background: linear-gradient(135deg, var(--kaue-rosa, #f472b6), var(--puro-ciano, #00e5ff));
             border: none;
             padding: 8px 14px;
             border-radius: 10px;
@@ -162,7 +165,6 @@
             filter: brightness(1.1);
         }
 
-        /* Botão Elegante de Fechar/Recusar */
         .pwa-btn-fechar {
             background: transparent;
             border: none;
@@ -193,11 +195,12 @@
     if (estaNoApp) {
         // --- MODO APLICATIVO INSTALADO (SPLASH) ---
         const splash = document.createElement('div');
+        splash.id = 'pwa-splash-screen';
         splash.className = 'splash-pwa-container';
         splash.innerHTML = `
             <div class="splash-logo-wrapper">
                 <div class="splash-logo-glow"></div>
-                <img src="icon-512.png?v=3" class="splash-logo" alt="K & S">
+                <img src="icon-512.png?v=3" class="splash-logo" alt="K & P">
             </div>
             <div class="splash-carregando">
                 <div class="splash-barra"></div>
@@ -205,18 +208,23 @@
         `;
         document.body.appendChild(splash);
 
-        // Suaviza a transição de saída quando os assets dão bind completo
-        window.addEventListener('load', () => {
+        // Remove o Splash de forma segura mesmo que o script execute após o carregamento total dos assets
+        const removerSplash = () => {
             setTimeout(() => {
                 splash.style.opacity = '0';
                 splash.style.visibility = 'hidden';
                 setTimeout(() => splash.remove(), 600);
-            }, 2000); // 2 segundos perfeitos de fixação de tela
-        });
+            }, 2000); // 2 segundos regulados de exibição de marca
+        };
+
+        if (document.readyState === 'complete') {
+            removerSplash();
+        } else {
+            window.addEventListener('load', removerSplash);
+        }
 
     } else {
         // --- MODO NAVEGADOR (PROMPT CUSTOMIZADO) ---
-        // Se o usuário já fechou o banner manualmente nesta sessão/aparelho, ignora
         if (localStorage.getItem('pwa-banner-recusado') === 'true') return;
 
         let capturaInstalacao = null;
@@ -225,10 +233,14 @@
             e.preventDefault();
             capturaInstalacao = e;
 
+            // Evita criar banners duplicados caso o evento dispare mais de uma vez
+            if (document.getElementById('pwa-banner-instalacao')) return;
+
             const banner = document.createElement('div');
+            banner.id = 'pwa-banner-instalacao';
             banner.className = 'banner-instalacao-pwa';
             banner.innerHTML = `
-                <img src="icon-192.png?v=3" class="pwa-icone-mini" alt="K&S">
+                <img src="icon-192.png?v=3" class="pwa-icone-mini" alt="K&P">
                 <div class="pwa-info-texto">
                     <span class="pwa-txt-titulo">Instalar Aplicativo</span>
                     <span class="pwa-txt-desc">Acesse na sua tela inicial</span>
@@ -238,12 +250,12 @@
             `;
             document.body.appendChild(banner);
 
-            // Abre o prompt de forma não intrusiva após 4 segundos logado
+            // Exibe o prompt após 4 segundos logado na página
             setTimeout(() => {
-                banner.classList.add('mostrar');
+                if (banner) banner.classList.add('mostrar');
             }, 4000);
 
-            // Ação de Instalação Nativa disparada pelo botão premium
+            // Disparador do prompt nativo
             document.getElementById('gatilho-instalar-pwa').addEventListener('click', () => {
                 banner.classList.remove('mostrar');
                 if (capturaInstalacao) {
@@ -258,7 +270,7 @@
                 }
             });
 
-            // Ação Inteligente do Botão Fechar (Salva no LocalStorage)
+            // Botão recusar/fechar temporariamente
             document.getElementById('fechar-pwa-banner').addEventListener('click', () => {
                 banner.classList.remove('mostrar');
                 localStorage.setItem('pwa-banner-recusado', 'true');

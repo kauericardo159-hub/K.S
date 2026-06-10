@@ -1,13 +1,13 @@
 :root {
-    /* Sincronização estrita de cores com o Card1 e a identidade do PWA */
-    --bg-card-secundario: rgba(10, 12, 22, 0.7);
-    --borda-escura-secundaria: rgba(0, 0, 0, 0.5);
+    /* Sincronização estrita de cores com a identidade atualizada e o Card1 */
+    /* ALTERAÇÃO: Preto puro com opacidade calibrada para efeito flutuante invisível/visível */
+    --bg-card-secundario: rgba(0, 0, 0, 0.45);
     
-    /* Paleta unificada dos personagens */
+    /* Paleta unificada dos personagens (Kauê: Rosa Normal e Claro | Puro: Ciano e Branco) */
     --kaue-rosa: #f472b6;
-    --kaue-amarelo: #fdf4cd;
-    --sky-ciano: #00e5ff;
-    --sky-branco: #ffffff;
+    --kaue-rosa-claro: #fbcfe8;
+    --puro-ciano: #00e5ff;
+    --puro-branco: #ffffff;
     
     /* Tipografia de Interface */
     --texto-claro: #f8fafc;
@@ -17,112 +17,129 @@
 /* --- CARD SECUNDÁRIO (TEMPO CONHECIDOS) --- */
 .card-secundario {
     position: relative;
-    /* Centralização perfeita e espaçamento seguro abaixo do Card1 */
     margin: 24px auto 0 auto !important; 
-    padding: 1.5rem 2rem;
-    background: var(--bg-card-secundario);
+    padding: 1.8rem 2.2rem;
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
     
-    /* Arquitetura de borda e contenção anti-vazamento */
-    border: 3px solid var(--borda-escura-secundaria);
-    border-radius: 22px;
+    /* ALTERAÇÃO EXTREMA: Remoção completa de bordas físicas tradicionais */
+    border: none !important;
+    border-radius: 24px;
     overflow: hidden;
-    
     text-align: center;
     width: 100%;
     max-width: 580px;
     
-    /* Vidro Translúcido (Glassmorphism Harmônico) */
-    backdrop-filter: blur(20px); 
-    -webkit-backdrop-filter: blur(20px);
+    /* ALTERAÇÃO CRÍTICA: Fusão de gradiente que torna o fundo transparente, mas visível */
+    /* Esquerda com névoa Rosa e Direita com névoa Azul/Ciano flutuando no fundo preto translúcido */
+    background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)) padding-box,
+                radial-gradient(circle at left, rgba(244, 114, 182, 0.25), transparent 45%),
+                radial-gradient(circle at right, rgba(0, 229, 255, 0.22), transparent 45%);
+    background-color: var(--bg-card-secundario);
     
-    /* Sombreamento profundo com reflexo interno sutil */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
-                inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    /* Vidro Translúcido Avançado (Garante visibilidade no fundo escuro sem usar bordas) */
+    backdrop-filter: blur(30px) saturate(140%); 
+    -webkit-backdrop-filter: blur(30px) saturate(140%);
     
-    /* Preparação da GPU para animações fluidas a 60 FPS */
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-                border-color 0.4s ease, 
-                box-shadow 0.4s ease;
+    /* Sombreamento suave para separar o card tridimensionalmente do fundo */
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.65),
+                inset 0 1px 0px rgba(255, 255, 255, 0.04);
+    
+    /* Preparação da GPU para animações fluidas e reatividade instantânea */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.5s ease;
     will-change: transform;
+    isolation: isolate;
 }
 
-/* Brilho reativo nas bordas ao passar o mouse ou interagir */
+/* Brilho reativo premium no hover - expande as cores laterais sutilmente */
 .card-secundario:hover {
-    transform: translateY(-3px) translateZ(0);
-    border-color: rgba(0, 229, 255, 0.25);
-    box-shadow: 0 25px 45px rgba(0, 0, 0, 0.7),
-                0 0 20px rgba(244, 114, 182, 0.08);
+    transform: translateY(-4px) scale(1.01) translateZ(0);
+    box-shadow: 0 35px 65px rgba(0, 0, 0, 0.85);
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)) padding-box,
+                radial-gradient(circle at left, rgba(244, 114, 182, 0.35), transparent 50%),
+                radial-gradient(circle at right, rgba(0, 229, 255, 0.32), transparent 50%);
 }
 
-/* Título em degradê linear com as identidades fundidas */
+/* Título em degradê linear estrito unificando o casal */
 .card-secundario-titulo {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
-    margin-bottom: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
     font-weight: 800;
-    background: linear-gradient(90deg, var(--sky-ciano), var(--kaue-rosa));
+    background: linear-gradient(90deg, var(--kaue-rosa), var(--puro-ciano));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
+/* Estrutura textual do contador interno */
 .contador-pequeno {
     font-weight: 600;
-    font-size: 1.15rem;
+    font-size: 1.18rem;
     color: var(--texto-claro);
-    letter-spacing: 0.3px;
-    line-height: 1.5;
+    letter-spacing: 0.2px;
+    line-height: 1.6;
 }
 
-/* Cápsulas de tempo premium combinando com o design das orelhas do Kauê */
+/* Cápsulas de tempo adaptadas ao novo padrão visual refinado */
 .tempo-destaque {
     font-weight: 800;
-    color: var(--kaue-amarelo); 
-    background: rgba(253, 244, 205, 0.06);
-    padding: 4px 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(253, 244, 205, 0.25);
+    color: #ffffff; /* Texto branco puro para máxima legibilidade */
+    background: rgba(0, 0, 0, 0.65); /* Slot escuro combinando com os números do Card1 */
+    padding: 5px 11px;
+    border-radius: 10px;
+    
+    /* Borda imperceptível que usa o degradê sutil do casal */
+    border: 1px solid transparent;
+    background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)) padding-box,
+                linear-gradient(135deg, var(--kaue-rosa), var(--puro-ciano)) border-box;
+    
     display: inline-block;
-    margin: 0 2px;
-    text-shadow: 0 0 10px rgba(253, 244, 205, 0.4);
-    box-shadow: inset 0 1px 3px rgba(253, 244, 205, 0.02);
-    transition: background 0.3s ease, border-color 0.3s ease;
+    margin: 0 3px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4),
+                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease;
 }
 
-/* Reatividade interna nas cápsulas quando o card principal sofre hover */
+/* Efeito de micro-interação ao passar o mouse por cima do card secundário */
 .card-secundario:hover .tempo-destaque {
-    background: rgba(253, 244, 205, 0.12);
-    border-color: rgba(253, 244, 205, 0.4);
+    transform: scale(1.05);
+    background: linear-gradient(rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.03)) padding-box,
+                linear-gradient(135deg, var(--kaue-rosa-claro), var(--puro-ciano)) border-box;
 }
 
 /* --- DESIGN RESPONSIVO OTIMIZADO (MOBILE ULTRA-FIT) --- */
 @media (max-width: 600px) {
     .card-secundario {
-        padding: 1.25rem 1.1rem;
+        padding: 1.4rem 1.2rem;
         margin-top: 20px !important;
-        border-radius: 18px;
-        border-width: 2px;
-        /* Garante margem lateral idêntica ao Card1 em telas pequenas */
+        border-radius: 20px;
         width: calc(100% - 10px); 
+        
+        /* Ajuste do gradiente invisível/visível para telas menores */
+        background: linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.78)) padding-box,
+                    radial-gradient(circle at left, rgba(244, 114, 182, 0.3), transparent 55%),
+                    radial-gradient(circle at right, rgba(0, 229, 255, 0.28), transparent 55%);
     }
     
     .contador-pequeno { 
-        font-size: 0.96rem; 
-        line-height: 1.7; 
+        font-size: 0.98rem; 
+        line-height: 1.8; 
     }
     
     .card-secundario-titulo { 
-        font-size: 0.68rem; 
-        letter-spacing: 2px;
-        margin-bottom: 10px;
+        font-size: 0.7rem; 
+        letter-spacing: 2.2px;
+        margin-bottom: 12px;
     }
     
     .tempo-destaque {
-        padding: 2px 8px;
-        border-radius: 6px;
-        font-size: 1rem;
+        padding: 3px 9px;
+        border-radius: 8px;
+        font-size: 1.02rem;
+        margin: 0 2px;
     }
 }

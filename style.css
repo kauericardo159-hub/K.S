@@ -7,6 +7,9 @@
     
     /* Configuração de transição global suave */
     --transicao-suave: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Nova variável para o efeito de borda/neon */
+    --neon-glow: linear-gradient(135deg, var(--sky-ciano), var(--kaue-rosa));
 }
 
 /* --- 2. RESET E OTIMIZAÇÃO DE RENDERIZAÇÃO --- */
@@ -16,6 +19,13 @@
     padding: 0;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+/* A cor escura de segurança fica aqui, protegendo a inicialização do app */
+html {
+    background-color: var(--bg-absoluto);
+    /* Garante que o html ocupe toda a tela para evitar quebras de scroll */
+    height: 100%;
 }
 
 /* Estilização da barra de rolagem para o padrão Dark Premium */
@@ -30,18 +40,17 @@
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     border: 2px solid var(--bg-absoluto);
-    transition: background 0.3s ease;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(var(--sky-ciano), var(--kaue-rosa));
+    background: var(--neon-glow);
 }
 
 /* --- 3. ESTRUTURA DO CORPO (BODY) --- */
 body {
-    background-color: var(--bg-absoluto);
+    background-color: transparent; 
     min-height: 100vh;
     
-    /* Flexbox inteligente: mudado para flex-start para respeitar as margens de topo dos cards sem esmagar o layout */
+    /* Flexbox inteligente */
     display: flex;
     flex-direction: column; 
     align-items: center;    
@@ -54,7 +63,7 @@ body {
     position: relative;
 }
 
-/* INTERCEPTADOR DE PERFORMANCE ULTRA: Substitui o 'background-attachment: fixed' antigo */
+/* INTERCEPTADOR DE PERFORMANCE ULTRA: Suporta múltiplos fundos com Cross-Fade */
 body::before {
     content: "";
     position: fixed;
@@ -62,20 +71,54 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('fundo.png');
+    
+    background-image: var(--bg-dinamico);
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: -1; /* Joga a imagem para trás de absolutamente tudo */
     
-    /* Força a GPU do celular a processar o fundo de forma isolada, rodando a 60 FPS cravados */
-    will-change: transform;
+    z-index: -2; /* Alterado para -2 para dar espaço à moldura de borda */
+    
+    /* Transição suave de fumaça */
+    transition: background-image 1.5s ease-in-out;
+    
+    /* Otimização de GPU */
+    will-change: background-image;
     transform: translateZ(0);
+}
+
+/* --- 3.1. NOVO: EFEITO DE BORDAS DO SITE/APP (MOLDURA PREMIUM) --- */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Fica acima do fundo dinâmico, mas atrás dos seus botões/textos */
+    pointer-events: none; /* Garante que o usuário consiga clicar em qualquer lugar da tela */
+    
+    /* OPÇÃO 1: Vinheta Sombreada Profunda (Estilo Cinema/Games) */
+    box-shadow: inset 0 0 100px rgba(10, 12, 22, 0.85), 
+                inset 0 0 40px rgba(10, 12, 22, 1);
+
+    /* OPÇÃO 2: Se quiser uma borda com Brilho Neon sutil (Cyberpunk), descomente as linhas abaixo: */
+    /*
+    border: 4px solid transparent;
+    background: linear-gradient(var(--bg-absoluto), var(--bg-absoluto)) padding-box,
+                var(--neon-glow) border-box;
+    opacity: 0.4;
+    */
 }
 
 /* --- 4. TRATAMENTO RESPONSIVO GLOBAL --- */
 @media (max-width: 600px) {
     body { 
         padding: 0 10px 24px 10px; 
+    }
+    
+    /* Suaviza o efeito nas bordas em telas mobile para não comer espaço útil */
+    body::after {
+        box-shadow: inset 0 0 40px rgba(10, 12, 22, 0.9);
     }
 }

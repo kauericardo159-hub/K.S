@@ -1,8 +1,8 @@
 (function() {
     'use strict';
     
-    // Trava de segurança para o modo manutenção
-    if (typeof emManutencao !== 'undefined' && emManutencao === true) return;
+    // Trava de segurança para o modo manutenção global
+    if (typeof window.emManutencao !== 'undefined' && window.emManutencao === true) return;
 
     // Data marco do relacionamento
     const DATA_RELACIONAMENTO = new Date('2026-04-25T01:30:00-03:00');
@@ -21,10 +21,12 @@
     const chaves = ['anos', 'meses', 'semanas', 'dias', 'horas', 'minutos', 'segundos'];
     const cacheElementos = {};
 
-    // --- 1. MONTAGEM E INJEÇÃO DA ESTRUTURA CORE ---
+    // --- 1. MONTAGEM E INJEÇÃO DA ESTRUTURA CORE (ATUALIZADO PARA IDENTIDADE PURO) ---
     const cardPrincipal = document.createElement('div');
     cardPrincipal.className = 'card';
     cardPrincipal.innerHTML = `
+        <img src="cardfundo.png" class="card-video-fundo" alt="Fundo do Card" loading="eager">
+
         <img src="efeito1.png" class="efeito-img efeito-esquerdo" alt="Efeito" loading="eager">
         <img src="efeito2.png" class="efeito-img efeito-direito" alt="Efeito" loading="eager">
         
@@ -44,18 +46,18 @@
             
             <div class="perfil-container">
                 <div class="perfil-wrapper sky-borda">
-                    <img src="sky.png" class="foto-perfil" alt="Sky">
+                    <img src="puro.png" class="foto-perfil" alt="Puro">
                     <img src="moldura1.png" class="moldura" alt="Moldura">
                 </div>
-                <span class="nome nome-sky">Sky</span>
+                <span class="nome nome-sky">Puro</span>
             </div>
         </div>
 
         <div class="info-tempo">
             <p class="subtitulo">
-                <i class="fa-solid fa-heart" style="color: #f472b6;"></i> 
+                <i class="fa-solid fa-heart icon-heart"></i> 
                 Juntos desde 25/04/2026 
-                <i class="fa-solid fa-heart" style="color: #3b82f6;"></i>
+                <i class="fa-solid fa-heart icon-heart"></i>
             </p>
             <div id="contador" class="contador-horizontal"></div>
         </div>
@@ -103,7 +105,7 @@
 
         // Ajustes matemáticos de estouro de tempo (Underflow)
         if (segundos < 0) { segundos += 60; minutos--; }
-        if (minutos < 0) { minutos += 60; horas--; }
+        if (minutos < 0) { minutes += 60; horas--; }
         if (horas < 0) { horas += 24; dias--; }
         if (dias < 0) {
             // Puxa exatamente quantos dias tinha o mês anterior
@@ -123,7 +125,7 @@
         // Consolida os dados calculados de forma limpa
         const resultados = { anos, meses, semanas, dias, horas, minutos, segundos };
 
-        // --- 4. RENDERIZAÇÃO DE ALTA PERFORMANCE (SEM ZEROS À ESQUERDA) ---
+        // --- 4. RENDERIZAÇÃO DE ALTA PERFORMANCE COM ALTERAÇÃO DINÂMICA DE CLASSES ---
         chaves.forEach(chave => {
             const num = resultados[chave];
             const cache = cacheElementos[chave];
@@ -132,8 +134,18 @@
                 // Atualiza o valor numérico puro
                 cache.valorEl.textContent = num;
                 
-                // Gerencia classes de atividade de design de forma reativa
-                cache.valorEl.className = num > 0 ? 'valor valor-ativo' : 'valor valor-zero';
+                // Gerencia classes de atividade de design de forma reativa e limpa
+                if (num > 0) {
+                    if (!cache.valorEl.classList.contains('valor-ativo')) {
+                        cache.valorEl.classList.remove('valor-zero');
+                        cache.valorEl.classList.add('valor-ativo');
+                    }
+                } else {
+                    if (!cache.valorEl.classList.contains('valor-zero')) {
+                        cache.valorEl.classList.remove('valor-ativo');
+                        cache.valorEl.classList.add('valor-zero');
+                    }
+                }
 
                 // Gramática automática inteligente (Singular vs Plural)
                 cache.labelEl.textContent = num === 1 ? LABELS[chave].S : LABELS[chave].P;
