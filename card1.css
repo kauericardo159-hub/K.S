@@ -1,0 +1,425 @@
+:root {
+    /* Paleta sincronizada com a identidade escura premium - Edição Dia dos Namorados */
+    --bg-card-principal: rgba(6, 4, 10, 0.75); 
+    
+    /* Cores Temáticas de Paixão & Identidade */
+    --kaue-rosa: #f472b6;
+    --kaue-rosa-claro: #fbcfe8;
+    --namorados-vermelho: #ef4444;
+    --namorados-rubi: #991b1b;
+    
+    /* Puro (Ciano + Branco) */
+    --puro-ciano: #00e5ff;
+    --puro-branco: #ffffff;
+    
+    /* Elementos de Interface */
+    --texto-claro: #f8fafc;
+    --texto-mutado: #94a3b8;
+}
+
+/* --- CARD PRINCIPAL --- */
+.card {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin: 110px auto 24px auto !important; 
+    padding: 3rem 2rem;
+    text-align: center;
+    border-radius: 28px;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    background-color: var(--bg-card-principal);
+    
+    /* Isola o empilhamento para a imagem não vazar a borda */
+    isolation: isolate; 
+    
+    /* Efeito Glassmorphism Temático (Reflexos quentes de fundo) */
+    backdrop-filter: blur(30px) saturate(120%);
+    -webkit-backdrop-filter: blur(30px) saturate(120%);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.9), 
+                inset 0 1px 2px rgba(254, 226, 226, 0.1);
+}
+
+/* Camada da Borda Viva Animada do Card (Rosa, Vermelho e Ciano) */
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 28px;
+    padding: 2.5px; 
+    background: linear-gradient(135deg, var(--kaue-rosa), var(--namorados-vermelho), var(--puro-ciano));
+    background-size: 300% 300%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 3; 
+    animation: moverGradiente 8s ease infinite;
+}
+
+/* --- CAMADA DA IMAGEM DE FUNDO --- */
+.card-video-fundo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: calc(100% - 5px);
+    height: calc(100% - 5px);
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: -1; 
+    pointer-events: none;
+    filter: brightness(0.35) contrast(1.1) sepia(10%) hue-rotate(-10deg);
+    
+    /* Garante recorte perfeito acompanhando os cantos arredondados do card */
+    border-radius: 26px; 
+    clip-path: inset(0 round 26px); 
+}
+
+/* Isolamento de Profundidade */
+.topo-relacionamento, .info-tempo, .centro-container {
+    position: relative;
+    z-index: 2;
+}
+
+/* --- DETALHES LATERAIS ROMÂNTICOS --- */
+.efeito-img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%) translateZ(0);
+    height: 65px;
+    width: auto;
+    opacity: 0.9;
+    pointer-events: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 2;
+    filter: drop-shadow(0 0 8px rgba(244, 114, 182, 0.3));
+}
+.efeito-esquerdo { left: 24px; }
+.efeito-direito { right: 24px; }
+
+/* --- CONFIGURAÇÃO DOS PERFIS --- */
+.topo-relacionamento {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.perfil-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    cursor: default;
+}
+
+.perfil-wrapper {
+    position: relative;
+    width: 105px;
+    height: 105px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+.perfil-container:hover .perfil-wrapper {
+    transform: scale(1.08) translateY(-4px);
+}
+
+.kaue-borda { 
+    background: linear-gradient(135deg, var(--kaue-rosa), var(--namorados-vermelho));
+    padding: 3px; 
+    box-shadow: 0 12px 30px rgba(239, 68, 68, 0.4);
+}
+.sky-borda { 
+    background: linear-gradient(135deg, var(--puro-ciano), var(--puro-branco));
+    padding: 3px; 
+    box-shadow: 0 12px 30px rgba(0, 229, 255, 0.35);
+}
+
+.foto-perfil { 
+    width: 100%; 
+    height: 100%; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    background: #06040a;
+    z-index: 1;
+}
+
+.moldura { 
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain;
+    pointer-events: none; 
+    transform: translate(-50%, -50%) scale(1.18); 
+    z-index: 3; 
+}
+
+.nome {
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6));
+}
+.nome-kaue { 
+    background-image: linear-gradient(135deg, var(--kaue-rosa), var(--kaue-rosa-claro)); 
+}
+.nome-sky { 
+    background-image: linear-gradient(135deg, var(--puro-ciano), var(--puro-branco)); 
+}
+
+/* --- BLOCO CENTRAL (MEME / LOGO) --- */
+.centro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 85px;
+}
+
+.meme-wrapper {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+}
+
+.centro-container:hover .meme-wrapper {
+    transform: scale(1.15) rotate(-8deg);
+}
+
+.meme-gif {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.e-simbolo {
+    font-size: 1.9rem;
+    font-weight: 900;
+    font-style: italic;
+    background: linear-gradient(135deg, var(--kaue-rosa), var(--namorados-vermelho), var(--puro-ciano));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.centro-container:hover .e-simbolo {
+    transform: scale(1.18) scaleX(-1);
+}
+
+/* --- SEÇÃO DO CRONÔMETRO DIA DOS NAMORADOS --- */
+.info-tempo {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.subtitulo {
+    font-size: 0.95rem;
+    color: #f1f5f9;
+    font-weight: 700;
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+/* Animação Realista de Batimento Cardíaco (Double Pulse) */
+.icon-heart {
+    animation: batimentoCardiaco 1.4s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+}
+
+/* MODIFICAÇÃO SOLICITADA: Estilização radical dos dois corações */
+.subtitulo .icon-heart:first-of-type {
+    color: var(--namorados-vermelho);
+    filter: drop-shadow(0 0 12px var(--namorados-vermelho)) drop-shadow(0 0 4px var(--kaue-rosa));
+}
+.subtitulo .icon-heart:last-of-type {
+    color: var(--puro-ciano);
+    filter: drop-shadow(0 0 12px var(--puro-ciano)) drop-shadow(0 0 4px #ffffff);
+}
+
+@keyframes batimentoCardiaco {
+    0% { transform: scale(1); }
+    14% { transform: scale(1.24); }
+    28% { transform: scale(1.05); }
+    42% { transform: scale(1.3); }
+    70% { transform: scale(1); }
+    100% { transform: scale(1); }
+}
+
+.contador-horizontal { 
+    display: flex; 
+    justify-content: center; 
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    max-width: 680px;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.tempo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1 1 calc(14.28% - 10px);
+    min-width: 60px;
+}
+
+/* Slots de Tempo Românticos */
+.valor { 
+    position: relative;
+    font-weight: 800;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    background: rgba(10, 6, 15, 0.85);
+    padding: 12px 2px; 
+    border-radius: 14px; 
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Slots Ativos com Linha de Gradiente Trilateral */
+.valor-ativo {
+    color: #ffffff !important;
+    box-shadow: 0 8px 24px rgba(239, 68, 68, 0.15);
+}
+
+.valor-ativo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 14px;
+    padding: 2px; 
+    background: linear-gradient(135deg, var(--kaue-rosa), var(--namorados-vermelho), var(--puro-ciano));
+    background-size: 300% 300%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    animation: moverGradiente 5s ease infinite; 
+}
+
+.tempo-item:hover .valor-ativo {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 15px 30px rgba(239, 68, 68, 0.25);
+}
+
+/* Valor Desativado (Zero) sutilizado */
+.valor-zero {
+    color: #4b5563 !important; 
+    background: rgba(5, 5, 5, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.label { 
+    font-size: 0.65rem;
+    text-transform: uppercase; 
+    margin-top: 10px; 
+    color: var(--texto-mutado); 
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.tempo-item:hover .label {
+    color: var(--kaue-rosa-claro);
+}
+
+/* --- MOTOR VISUAL DE MOVIMENTAÇÃO DE CORES DA BORDA --- */
+@keyframes moverGradiente {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- DESIGN RESPONSIVO MOBILE ULTRA-FIT --- */
+@media (max-width: 600px) {
+    .card { 
+        margin: 95px auto 16px auto !important;
+        padding: 2.2rem 1rem 2rem 1rem; 
+        border-radius: 24px;
+        width: calc(100% - 10px);
+    }
+    .card::before { border-radius: 24px; padding: 1.8px; }
+    
+    .card-video-fundo {
+        width: calc(100% - 3.5px);
+        height: calc(100% - 3.5px);
+        border-radius: 22px;
+        clip-path: inset(0 round 22px);
+    }
+    
+    .efeito-img {     
+        height: 46px;
+        top: 24px;
+        transform: none;
+    }
+    .efeito-esquerdo { left: 12px; }
+    .efeito-direito { right: 12px; }
+
+    .topo-relacionamento {
+        gap: 16px;
+        margin-top: 12px;
+        margin-bottom: 2rem;
+    }
+
+    .perfil-wrapper { 
+        width: 85px; 
+        height: 85px; 
+    }
+    
+    .nome { font-size: 1.2rem; }
+    
+    .centro-container { min-width: 65px; gap: 4px; }
+    .meme-wrapper { width: 62px; height: 62px; }
+    .e-simbolo { font-size: 1.6rem; }
+
+    .subtitulo { font-size: 0.85rem; margin-bottom: 22px; letter-spacing: 0.5px; }
+
+    .contador-horizontal { 
+        gap: 5px; 
+    }
+    
+    .tempo-item { 
+        flex: 1 1 calc(14.28% - 5px);
+        min-width: 0; 
+    }
+
+    .valor { 
+        font-size: clamp(0.85rem, 3.4vw, 1.15rem); 
+        padding: 10px 0; 
+        border-radius: 11px; 
+    }
+    .valor-ativo::before { border-radius: 11px; }
+    
+    .label { 
+        font-size: 0.5rem; 
+        margin-top: 8px; 
+        letter-spacing: 0.4px;
+    }
+}

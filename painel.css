@@ -1,0 +1,245 @@
+/* =========================================================
+   👑 CONTAINER LATERAL PREMIUM - EDIÇÃO DIA DOS NAMORADOS
+   ========================================================= */
+#painel-sobre {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    /* Mistura premium de fundo escuro absoluto com névoa sutil de paixão e ciano nos cantos */
+    background: linear-gradient(rgba(6, 4, 10, 0.94), rgba(6, 4, 10, 0.94)) padding-box,
+                radial-gradient(circle at bottom left, rgba(239, 68, 68, 0.15), transparent 60%),
+                radial-gradient(circle at top right, rgba(0, 229, 255, 0.1), transparent 60%);
+    border-right: 1px solid rgba(254, 226, 226, 0.05);
+    backdrop-filter: blur(25px) saturate(120%);
+    -webkit-backdrop-filter: blur(25px) saturate(120%);
+    box-shadow: 25px 0 60px rgba(0, 0, 0, 0.75);
+    box-sizing: border-box;
+    
+    /* Configuração ativa padrão: Visível e clicável */
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    
+    /* Transição de alto desempenho calibrada via Bezier */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.4s ease,
+                visibility 0.4s ease;
+    
+    /* Prepara a GPU para evitar oscilações em processadores mobile */
+    will-change: transform, opacity;
+}
+
+/* FIX DA ANIMAÇÃO: Remove a sombra e a visibilidade para liberar cliques no fundo do site */
+#painel-sobre.paineis-ocultos {
+    transform: translateX(-100%) translateZ(0) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    box-shadow: none !important; /* Impede que a sombra bloqueie a tela do usuário */
+}
+
+.painel-scroll-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 3.5rem 2rem 2rem 2rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch; /* Rolagem elástica ultra suave no iOS */
+}
+
+/* Customização fina da barra de rolagem interna combinando com o app */
+.painel-scroll-wrapper::-webkit-scrollbar { 
+    width: 4px; 
+}
+.painel-scroll-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+.painel-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+}
+.painel-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #ef4444, #00e5ff); /* Transição Vermelho/Ciano */
+}
+
+/* =========================================================
+   ⚡ ELEMENTOS DE ESTRUTURA
+   ========================================================= */
+.painel-secao-topo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 15px;
+}
+
+.painel-avatar-site {
+    width: 46px;
+    height: 46px;
+    object-fit: contain;
+    border-radius: 12px;
+    filter: drop-shadow(0 4px 15px rgba(239, 68, 68, 0.3)); /* Brilho sutil Vermelho Paixão */
+    border: 1px solid rgba(254, 226, 226, 0.08);
+}
+
+.painel-titulo-principal {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 1.35rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, #f8fafc, #fbcfe8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.3px;
+    margin: 0;
+}
+
+.painel-linha-separadora {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(239, 68, 68, 0.12), rgba(0, 229, 255, 0.04), transparent);
+    margin: 2rem 0;
+    flex-shrink: 0;
+}
+
+.painel-secao-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.painel-label-secao {
+    font-family: 'Poppins', sans-serif !important;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #94a3b8; /* Tom fosco elegante calibrado */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0 0 4px 0;
+    transition: color 0.3s ease;
+}
+
+/* Brilha o título da seção em Rosa Amor quando o usuário interage com o painel */
+#painel-sobre:hover .painel-label-secao {
+    color: #f472b6; /* Rosa Kauê ativo */
+}
+
+/* =========================================================
+   🔗 LISTA DE LINKS INTERATIVOS
+   ========================================================= */
+.painel-links-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
+
+.painel-item-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(10, 6, 15, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    padding: 14px 18px;
+    border-radius: 14px; 
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+/* Indicador lateral trilateral namorados (Rosa -> Vermelho -> Ciano) */
+.painel-item-decoracao {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: linear-gradient(180deg, #f472b6, #ef4444, #00e5ff);
+    border-radius: 0 4px 4px 0;
+    transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.painel-item-favicon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.03); 
+    padding: 3px;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.painel-item-texto {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 14px;
+    transition: color 0.3s ease;
+}
+
+.painel-item-seta {
+    margin-left: auto;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.15);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+}
+
+/* Efeito Hover Reativo Romântico Premium */
+.painel-item-link:hover {
+    background: rgba(239, 68, 68, 0.04); /* Leve reflexo Vermelho interno */
+    border-color: rgba(239, 68, 68, 0.2);
+    color: #ffffff;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.painel-item-link:hover .painel-item-decoracao {
+    height: 100%; /* Expande o detalhe lateral por completo */
+}
+
+.painel-item-link:hover .painel-item-texto {
+    color: #ffffff;
+}
+
+.painel-item-link:hover .painel-item-favicon {
+    transform: scale(1.08) rotate(3deg);
+    filter: drop-shadow(0 0 8px rgba(239, 68, 68, 0.4));
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.painel-item-link:hover .painel-item-seta {
+    transform: translateX(4px);
+    color: #ef4444; /* Seta aponta em vermelho paixão */
+}
+
+#container-creditos-interno {
+    margin-top: auto;
+    padding-top: 2rem;
+}
+
+/* =========================================================
+   📱 RESPONSIVIDADE (MOBILE ULTRA-FIT)
+   ========================================================= */
+@media (max-width: 767px) {
+    #painel-sobre {
+        width: 100vw;
+        height: 100dvh; /* Evita problemas com as barras de navegação nativas do mobile */
+        border-right: none;
+        background: linear-gradient(rgba(6, 4, 10, 0.97), rgba(6, 4, 10, 0.97)) padding-box,
+                    radial-gradient(circle at bottom left, rgba(239, 68, 68, 0.18), transparent 65%),
+                    radial-gradient(circle at top right, rgba(0, 229, 255, 0.12), transparent 65%);
+    }
+    .painel-scroll-wrapper { 
+        padding: 4.5rem 1.5rem 2rem 1.5rem; /* Espaço para o botão hambúrguer mobile */
+    }
+}
+
+@media (min-width: 768px) {
+    #painel-sobre { 
+        width: 380px; 
+        height: 100vh; 
+    }
+}

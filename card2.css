@@ -1,0 +1,149 @@
+:root {
+    /* Sincronização estrita de cores com a identidade atualizada e o Card1 - Edição Dia dos Namorados */
+    --bg-card-secundario: rgba(6, 4, 10, 0.55);
+    
+    /* Paleta temática de Paixão & Identidade unificada */
+    --kaue-rosa: #f472b6;
+    --kaue-rosa-claro: #fbcfe8;
+    --namorados-vermelho: #ef4444;
+    --namorados-rubi: #991b1b;
+    
+    /* Puro (Ciano + Branco) */
+    --puro-ciano: #00e5ff;
+    --puro-branco: #ffffff;
+    
+    /* Tipografia de Interface */
+    --texto-claro: #f8fafc;
+    --texto-mutado: #94a3b8;
+}
+
+/* --- CARD SECUNDÁRIO (TEMPO CONHECIDOS - EDIÇÃO NAMORADOS) --- */
+.card-secundario {
+    position: relative;
+    margin: 24px auto 0 auto !important; 
+    padding: 1.8rem 2.2rem;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    
+    /* Remoção completa de bordas físicas tradicionais */
+    border: none !important;
+    border-radius: 24px;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    max-width: 580px;
+    
+    /* FUSÃO DE GRADIENTE ATUALIZADA: Névoa Rubí/Rosa e Ciano flutuando no fundo translúcido apaixonado */
+    background: linear-gradient(rgba(10, 6, 15, 0.8), rgba(10, 6, 15, 0.8)) padding-box,
+                radial-gradient(circle at left, rgba(239, 68, 68, 0.28), transparent 45%),
+                radial-gradient(circle at right, rgba(0, 229, 255, 0.22), transparent 45%);
+    background-color: var(--bg-card-secundario);
+    
+    /* Vidro Translúcido Avançado Temático */
+    backdrop-filter: blur(30px) saturate(130%); 
+    -webkit-backdrop-filter: blur(30px) saturate(130%);
+    
+    /* Sombreamento profundo com reflexo sutil avermelhado de fundo */
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.75),
+                inset 0 1px 1px rgba(254, 226, 226, 0.06);
+    
+    /* Preparação da GPU para animações fluidas e reatividade instantânea */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                background 0.5s ease;
+    will-change: transform;
+    isolation: isolate;
+}
+
+/* Brilho reativo premium no hover - expande a atmosfera romântica */
+.card-secundario:hover {
+    transform: translateY(-4px) scale(1.01) translateZ(0);
+    box-shadow: 0 35px 65px rgba(0, 0, 0, 0.85), 
+                0 0 30px rgba(239, 68, 68, 0.1);
+    background: linear-gradient(rgba(10, 6, 15, 0.75), rgba(10, 6, 15, 0.75)) padding-box,
+                radial-gradient(circle at left, rgba(239, 68, 68, 0.38), transparent 50%),
+                radial-gradient(circle at right, rgba(0, 229, 255, 0.3), transparent 50%);
+}
+
+/* Título em degradê linear trilateral unificando o casal no clima romântico */
+.card-secundario-titulo {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--kaue-rosa), var(--namorados-vermelho), var(--puro-ciano));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+/* Estrutura textual do contador interno */
+.contador-pequeno {
+    font-weight: 600;
+    font-size: 1.18rem;
+    color: var(--texto-claro);
+    letter-spacing: 0.2px;
+    line-height: 1.6;
+}
+
+/* Cápsulas de tempo adaptadas ao novo padrão visual apaixonado */
+.tempo-destaque {
+    font-weight: 800;
+    color: #ffffff; /* Texto branco puro para máxima legibilidade */
+    background: rgba(10, 6, 15, 0.85); /* Slot escuro combinando com o Card1 atualizado */
+    padding: 5px 11px;
+    border-radius: 10px;
+    
+    /* Borda imperceptível que usa o degradê trilateral do casal */
+    border: 1px solid transparent;
+    background: linear-gradient(rgba(10, 6, 15, 0.85), rgba(10, 6, 15, 0.85)) padding-box,
+                linear-gradient(135deg, var(--kaue-rosa), var(--namorados-vermelho), var(--puro-ciano)) border-box;
+    
+    display: inline-block;
+    margin: 0 3px;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.45),
+                inset 0 1px 1px rgba(255, 255, 255, 0.05);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito de micro-interação ao passar o mouse por cima das cápsulas */
+.card-secundario:hover .tempo-destaque {
+    transform: scale(1.05);
+    box-shadow: 0 8px 18px rgba(239, 68, 68, 0.15);
+    background: linear-gradient(rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.02)) padding-box,
+                linear-gradient(135deg, var(--kaue-rosa-claro), var(--namorados-vermelho), var(--puro-ciano)) border-box;
+}
+
+/* --- DESIGN RESPONSIVO OTIMIZADO (MOBILE ULTRA-FIT) --- */
+@media (max-width: 600px) {
+    .card-secundario {
+        padding: 1.4rem 1.2rem;
+        margin-top: 20px !important;
+        border-radius: 20px;
+        width: calc(100% - 10px); 
+        
+        /* Ajuste do gradiente invisível/visível para telas menores */
+        background: linear-gradient(rgba(10, 6, 15, 0.82), rgba(10, 6, 15, 0.82)) padding-box,
+                    radial-gradient(circle at left, rgba(239, 68, 68, 0.32), transparent 55%),
+                    radial-gradient(circle at right, rgba(0, 229, 255, 0.26), transparent 55%);
+    }
+    
+    .contador-pequeno { 
+        font-size: 0.98rem; 
+        line-height: 1.8; 
+    }
+    
+    .card-secundario-titulo { 
+        font-size: 0.7rem; 
+        letter-spacing: 2.2px;
+        margin-bottom: 12px;
+    }
+    
+    .tempo-destaque {
+        padding: 3px 9px;
+        border-radius: 8px;
+        font-size: 1.02rem;
+        margin: 0 2px;
+    }
+}
