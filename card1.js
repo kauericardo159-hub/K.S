@@ -62,6 +62,8 @@
             <div id="contador" class="contador-horizontal"></div>
         </div>
     `;
+    
+    // CORREÇÃO CRÍTICA: Injeta o elemento no DOM primeiro, para que o getElementById possa encontrá-lo abaixo
     document.body.appendChild(cardPrincipal);
 
     // --- 2. CONSTRUÇÃO E CACHEAMENTO DOS SLOTS DO CONTADOR ---
@@ -105,7 +107,7 @@
 
         // Ajustes matemáticos de estouro de tempo (Underflow)
         if (segundos < 0) { segundos += 60; minutos--; }
-        if (minutos < 0) { minutes += 60; horas--; }
+        if (minutos < 0) { minutos += 60; horas--; } // CORREÇÃO: Removido o "s" de 'minutes'
         if (horas < 0) { horas += 24; dias--; }
         if (dias < 0) {
             // Puxa exatamente quantos dias tinha o mês anterior
