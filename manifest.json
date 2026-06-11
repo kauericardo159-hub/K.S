@@ -39,9 +39,9 @@
   ],
   "shortcuts": [
     {
-      "name": "Acessar Textoteca",
-      "short_name": "Textoteca",
-      "url": "https://kauericardo159-hub.github.io/Textoteca/",
+      "name": "Acessar VersosNossos",
+      "short_name": "VersosNossos",
+      "url": "https://kauericardo159-hub.github.io/VersosNossos/",
       "description": "Abra nosso espaço integrado de textos e composições.",
       "icons": [
         {
