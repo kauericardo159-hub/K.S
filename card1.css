@@ -7,8 +7,8 @@
     --kaue-rosa-claro: #fbcfe8;
     
     /* Puro (Ciano + Branco) */
-    --puro-ciano: #00e5ff;
-    --puro-branco: #ffffff;
+    --sky-ciano: #00e5ff;
+    --sky-branco: #ffffff;
     
     /* Elementos de Interface */
     --texto-claro: #f8fafc;
@@ -45,7 +45,7 @@
     inset: 0;
     border-radius: 28px;
     padding: 2px; /* Aumentado ligeiramente para dar mais destaque e definição */
-    background: linear-gradient(135deg, var(--kaue-rosa), var(--puro-ciano));
+    background: linear-gradient(135deg, var(--kaue-rosa), var(--sky-ciano));
     background-size: 300% 300%;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
