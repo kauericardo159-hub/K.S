@@ -46,10 +46,10 @@
             
             <div class="perfil-container">
                 <div class="perfil-wrapper sky-borda">
-                    <img src="puro.png" class="foto-perfil" alt="Puro">
+                    <img src="sky.png" class="foto-perfil" alt="Sky">
                     <img src="moldura1.png" class="moldura" alt="Moldura">
                 </div>
-                <span class="nome nome-sky">Puro</span>
+                <span class="nome nome-sky">Sky</span>
             </div>
         </div>
 
