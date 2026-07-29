@@ -1,0 +1,290 @@
+/* =========================================================
+   👑 CONTAINER LATERAL PREMIUM (GLASSMORPHISM)
+   ========================================================= */
+#painel-sobre {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: rgba(10, 12, 22, 0.92);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(28px);
+    -webkit-backdrop-filter: blur(28px);
+    box-shadow: 25px 0 60px rgba(0, 0, 0, 0.7);
+    box-sizing: border-box;
+    
+    /* Configuração padrão */
+    opacity: 1;
+    transform: translateX(0) translateZ(0);
+    visibility: visible;
+    pointer-events: auto;
+    
+    /* Animação suave e com aceleração gráfica */
+    transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), 
+                opacity 0.35s ease,
+                visibility 0.35s ease;
+    
+    will-change: transform, opacity;
+}
+
+/* Estado Oculto */
+#painel-sobre.paineis-ocultos {
+    transform: translateX(-105%) translateZ(0) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    box-shadow: none !important;
+}
+
+.painel-scroll-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    padding: 3.5rem 1.75rem 2rem 1.75rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Personalização da barra de rolagem */
+.painel-scroll-wrapper::-webkit-scrollbar { 
+    width: 4px; 
+}
+.painel-scroll-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+.painel-scroll-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+.painel-scroll-wrapper::-webkit-scrollbar-thumb:hover {
+    background: var(--sky-ciano, #00e5ff);
+}
+
+/* =========================================================
+   ⚡ BOTÃO FECHAR & ELEMENTOS DE ESTRUTURA
+   ========================================================= */
+.painel-btn-fechar {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    font-size: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    line-height: 1;
+}
+
+.painel-btn-fechar:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #ef4444;
+    transform: scale(1.05);
+}
+
+.painel-secao-topo {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 10px;
+}
+
+.painel-avatar-site {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    border-radius: 14px;
+    filter: drop-shadow(0 4px 15px rgba(0, 229, 255, 0.25));
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(10, 12, 22, 0.6);
+}
+
+.painel-topo-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.painel-titulo-principal {
+    font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif !important;
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.painel-subtitulo {
+    font-size: 0.75rem;
+    color: var(--kaue-rosa, #f472b6);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+}
+
+.painel-linha-separadora {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02), transparent);
+    margin: 1.75rem 0;
+    flex-shrink: 0;
+}
+
+.painel-secao-conteudo {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.painel-label-secao {
+    font-family: 'Plus Jakarta Sans', 'Poppins', sans-serif !important;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 6px 0;
+    transition: color 0.3s ease;
+}
+
+/* =========================================================
+   🔗 LISTA DE LINKS INTERATIVOS
+   ========================================================= */
+.painel-links-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.painel-item-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 12px 16px;
+    border-radius: 14px;
+    color: #94a3b8;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    overflow: hidden;
+}
+
+.painel-item-decoracao {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 0;
+    background: linear-gradient(180deg, var(--kaue-rosa, #f472b6), var(--sky-ciano, #00e5ff));
+    border-radius: 0 4px 4px 0;
+    transition: height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.painel-item-favicon {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.04); 
+    padding: 3px;
+    flex-shrink: 0;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.painel-item-detalhes {
+    display: flex;
+    flex-direction: column;
+    margin-left: 12px;
+    flex: 1;
+}
+
+.painel-item-texto {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #f1f5f9;
+    transition: color 0.3s ease;
+}
+
+.painel-item-desc {
+    font-size: 0.7rem;
+    color: #64748b;
+    margin-top: 1px;
+}
+
+.painel-item-seta {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+    margin-left: 8px;
+}
+
+/* Hover Effects */
+.painel-item-link:hover {
+    background: rgba(0, 229, 255, 0.04);
+    border-color: rgba(0, 229, 255, 0.3);
+    color: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.painel-item-link:hover .painel-item-decoracao {
+    height: 100%;
+}
+
+.painel-item-link:hover .painel-item-favicon {
+    transform: scale(1.1) rotate(2deg);
+    filter: drop-shadow(0 0 10px rgba(0, 229, 255, 0.4));
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.painel-item-link:hover .painel-item-seta {
+    transform: translateX(4px);
+    color: var(--sky-ciano, #00e5ff);
+}
+
+#container-creditos-interno {
+    margin-top: auto;
+    padding-top: 1.5rem;
+}
+
+/* =========================================================
+   📱 RESPONSIVIDADE (MOBILE & DESKTOP)
+   ========================================================= */
+@media (max-width: 767px) {
+    #painel-sobre {
+        width: 100vw;
+        height: 100dvh;
+        border-right: none;
+    }
+    
+    .painel-scroll-wrapper { 
+        padding: 4rem 1.25rem 2rem 1.25rem;
+    }
+
+    .painel-btn-fechar {
+        top: 16px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+    }
+}
+
+@media (min-width: 768px) {
+    #painel-sobre { 
+        width: 380px; 
+        height: 100vh; 
+    }
+}

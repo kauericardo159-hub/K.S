@@ -1,0 +1,102 @@
+{
+  "name": "K & S - Conexão Eternizada",
+  "short_name": "K & S",
+  "description": "Espaço premium dedicado à preservação da nossa história, memórias, versos e conexão eterna.",
+  "id": "ks-conexao-eternizada-v2.0-pwa",
+  "start_url": "./index.html?ref=pwa_launch_2026",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "window-controls-overlay", "minimal-ui"],
+  "background_color": "#0a0c16",
+  "theme_color": "#0a0c16",
+  "dir": "ltr",
+  "lang": "pt-BR",
+  "orientation": "portrait-primary",
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
+  "prefer_related_applications": false,
+  "related_applications": [
+    {
+      "platform": "webapp",
+      "url": "https://kauericardo159-hub.github.io/VersosNossos/manifest.json"
+    }
+  ],
+  "categories": ["lifestyle", "personal", "utilities"],
+  "icons": [
+    {
+      "src": "favicon.png?v=3",
+      "sizes": "32x32 48x48 16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-64.png?v=3",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png?v=3",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png?v=3",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png?v=3",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png?v=3",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "VersosNossos",
+      "short_name": "VersosNossos",
+      "url": "https://kauericardo159-hub.github.io/VersosNossos/",
+      "description": "Acessar o espaço integrado de poéticas e composições.",
+      "icons": [
+        {
+          "src": "./iconVersosNossos-192.png?v=4",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshot-mobile.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Interface Principal Mobile"
+    },
+    {
+      "src": "screenshot-desktop.png",
+      "sizes": "1920x1080",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Painel de Conexão Desktop"
+    }
+  ],
+  "protocol_handlers": [
+    {
+      "protocol": "web+ks",
+      "url": "./index.html?action=open&id=%s"
+    }
+  ]
+}
