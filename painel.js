@@ -76,7 +76,7 @@
             <div class="painel-linha-separadora"></div>
 
             <div class="painel-secao-conteudo">
-                <h3 class="painel-label-secao">Ecossistema de Projetos</h3>
+                <h3 class="painel-label-secao">Sites que fazem parte e possa ver também</h3>
                 <div class="painel-links-lista">
                     ${linksHTML}
                 </div>
