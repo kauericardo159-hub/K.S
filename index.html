@@ -27,14 +27,14 @@
 
 <script>
     // Usamos 'var' para blindar o escopo e garantir leitura universal sem travar
-    var emManutencaoManual = true; 
+    var emManutencaoManual = false; 
     
     // Data alvo para teste ou liberação programada
     var dataLiberacaoTexto = "2026-07-29T13:00:00"; 
     
     // Conteúdo da tela de manutenção
-    var tituloManutencao = "Fazendo Algo";
-    var mensagemManutencao = "Fazendo algo no site. <br><br> ??? ";
+    var tituloManutencao = "Atualização & Correções";
+    var mensagemManutencao = "O site está recebendo pequena atualização, também outro site que faz parte desse site está recebendo atualização ao mesmo tempo, vai ser liberado assim que surgir um tempo.  <br><br> Versão Final?... ";
 
     var emManutencao = emManutencaoManual;
     var dataAlvoObjeto = null;
@@ -54,6 +54,7 @@
     <script src="manutencao.js" defer></script>
   
     <script src="card1.js" defer></script>
+    <script src="mensagem.js" defer></script>
     <script src="card2.js" defer></script>
   
     <script src="estrelas.js" defer></script>
